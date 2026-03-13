@@ -1,4 +1,4 @@
-# Zilosoft Quote Reply
+# mattermost Quote Reply
 
 [![CI](https://github.com/zilosoft/mattermost-reply/actions/workflows/ci.yml/badge.svg)](https://github.com/zilosoft/mattermost-reply/actions/workflows/ci.yml)
 [![Release](https://github.com/zilosoft/mattermost-reply/actions/workflows/release.yml/badge.svg)](https://github.com/zilosoft/mattermost-reply/actions/workflows/release.yml)
@@ -7,7 +7,7 @@ Mattermost plugin that adds Telegram-like quoting for channel posts and thread r
 
 ## What It Does
 
-- Adds a `Цитата` action next to post hover actions.
+- Adds a `Quote` action next to post hover actions.
 - Lets you select part of a message and quote only that fragment.
 - Keeps quoting scoped correctly:
   - quotes from the center channel go to the center channel composer;
@@ -17,8 +17,8 @@ Mattermost plugin that adds Telegram-like quoting for channel posts and thread r
 
 ## Current UX
 
-- Click `Цитата` on a post to quote the whole message.
-- Select text inside a post body to get a small `Цитата` popup.
+- Click `Quote` on a post to quote the whole message.
+- Select text inside a post body to get a small `Quote` popup.
 - Multiple quotes can be added one after another before sending.
 - The plugin avoids showing the popup on author names and other non-message UI text.
 
