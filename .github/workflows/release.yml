@@ -1,0 +1,64 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Install webapp dependencies
+        run: npm ci
+        working-directory: webapp
+
+      - name: Lint webapp
+        run: npm run lint
+        working-directory: webapp
+
+      - name: Type check webapp
+        run: npm run check-types
+        working-directory: webapp
+
+      - name: Run webapp tests
+        run: npm test -- --runInBand --watchman=false
+        working-directory: webapp
+
+      - name: Run Go tests
+        run: go test ./...
+
+      - name: Build plugin bundle
+        run: make dist
+
+      - name: Generate checksums
+        run: sha256sum dist/*.tar.gz > dist/checksums.txt
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.tar.gz
+            dist/checksums.txt
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-rc') }}
