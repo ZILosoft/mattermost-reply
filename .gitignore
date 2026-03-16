@@ -1,0 +1,14 @@
+bin/
+dist/
+task_plan.md
+findings.md
+progress.md
+
+# Mac
+.DS_Store
+
+# Jetbrains
+.idea/
+
+# VS Code
+.vscode
